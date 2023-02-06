@@ -1,0 +1,32 @@
+/* Toast */
+.toast-info{
+    background-color: #17A2B8;
+}
+.toast-success{
+    background-color: #1c9108;
+}
+.toast-warning{
+    background-color: #F49917;
+}
+#toast-container > .toast-warning{
+    color: #212529;
+}
+
+#toast-container > .toast-warning:before {
+    color: #212529;
+}
+
+.toast-error{
+    background-color: #DC3545;
+}
+
+#toast-container > div {
+    font-weight: 600;
+    opacity:1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    -moz-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
