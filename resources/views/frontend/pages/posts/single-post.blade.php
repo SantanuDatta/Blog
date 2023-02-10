@@ -103,7 +103,7 @@
                                         <h4 class="name">{{ $comment->user->name }}</h4>
                                         <span class="date">{{ $comment->created_at->toFormattedDateString() }}</span>
                                         <p>{!! $comment->description !!}</p>
-                                        <a href="#" class="btn btn-default btn-sm">Reply</a>
+                                        {{-- <a href="#" class="btn btn-default btn-sm">Reply</a> --}}
                                     </div>
                                 </li>
                             @endforeach
