@@ -39,7 +39,7 @@ class SubscriberController extends Controller
     {
 
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Subscriber::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Subscriber::class],
         ]);
 
         $subscriber = new Subscriber();
@@ -51,7 +51,7 @@ class SubscriberController extends Controller
         );
 
         $subscriber->save();
-        
+
         return redirect()->back()->with($notification);
     }
 
@@ -98,13 +98,13 @@ class SubscriberController extends Controller
     public function destroy($id)
     {
         $subscriber = Subscriber::find($id);
-        if(!is_null($subscriber)){
+        if (!is_null($subscriber)) {
             $notification = array(
                 'alert-type'    => 'error',
                 'message'       => 'Subscriber Has Been Removed!',
             );
             $subscriber->delete();
-        }else{
+        } else {
             //404
         }
         return redirect()->route('subscriber.manage')->with($notification);

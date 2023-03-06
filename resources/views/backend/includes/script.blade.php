@@ -16,30 +16,31 @@
     <script src="{{ asset('backend/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
     <script src="http://maps.google.com/maps/api/js?key=AIzaSyAq8o5-8Y5pudbJMJtDFzb8aHiWJufa5fg"></script>
     <script src="{{ asset('bakend/lib/gmaps/gmaps.min.js') }}"></script>
+    <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
     <script src="{{ asset('backend/js/bracket.js') }}"></script>
     <script src="{{ asset('backend/js/map.shiftworker.js') }}"></script>
     <script src="{{ asset('backend/js/ResizeSensor.js') }}"></script>
     <script src="{{ asset('backend/js/dashboard.js') }}"></script>
-    
+
     {{-- Ck Editor --}}
     <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <script type="text/javascript">
-        CKEDITOR.replace( 'short_desc', {
+        CKEDITOR.replace('short_desc', {
             height: '6em',
             enterMode: CKEDITOR.ENTER_BR,
             shiftEnterMode: CKEDITOR.ENTER_P
         });
 
-        CKEDITOR.replace( 'long_desc', {
+        CKEDITOR.replace('long_desc', {
             height: '25em',
             enterMode: CKEDITOR.ENTER_BR,
             shiftEnterMode: CKEDITOR.ENTER_P,
-            filebrowserUploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+            filebrowserImageBrowseUrl: '/file-manager/ckeditor',
             filebrowserUploadMethod: 'form',
         });
-        
-        CKEDITOR.replace( 'add_info', {
+
+        CKEDITOR.replace('add_info', {
             height: '25em',
             enterMode: CKEDITOR.ENTER_BR,
             shiftEnterMode: CKEDITOR.ENTER_P
@@ -55,21 +56,23 @@
     {{-- Data Table --}}
     <script src="{{ asset('backend/lib/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('backend/lib/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    
+
     <script>
-        $(function(){
+        $(function() {
             'use strict';
 
             $('#data').DataTable({
-            language: {
-                searchPlaceholder: 'Search...',
-                sSearch: '',
-                lengthMenu: '_MENU_ items/page',
-            }
+                language: {
+                    searchPlaceholder: 'Search...',
+                    sSearch: '',
+                    lengthMenu: '_MENU_ items/page',
+                }
             });
 
             // Select2
-            $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity
+            });
 
         });
     </script>
@@ -97,59 +100,59 @@
             "hideMethod": "fadeOut"
         }
         @if (Session::has('message'))
-            var type="{{ Session::get('alert-type', 'info') }}";
+            var type = "{{ Session::get('alert-type', 'info') }}";
 
-            switch(type){
+            switch (type) {
                 case 'info':
                     toastr.info("{{ Session::get('message') }}");
-                break;
+                    break;
                 case 'success':
                     toastr.success("{{ Session::get('message') }}");
-                break;
+                    break;
                 case 'warning':
                     toastr.warning("{{ Session::get('message') }}");
-                break;
+                    break;
                 case 'error':
                     toastr.error("{{ Session::get('message') }}");
-                break;
+                    break;
             }
         @endif
     </script>
-    
+
     <script>
-        $(function(){
+        $(function() {
+            'use strict';
+            $('.inputfile').each(function() {
+                var $input = $(this),
+                    $label = $input.next('label'),
+                    labelVal = $label.html();
 
-        'use strict';
+                $input.on('change', function(e) {
+                    var fileName = '';
 
-        $( '.inputfile' ).each( function()
-        {
-        var $input	 = $( this ),
-            $label	 = $input.next( 'label' ),
-            labelVal = $label.html();
+                    if (this.files && this.files.length > 1)
+                        fileName = (this.getAttribute('data-multiple-caption') || '').replace(
+                            '{count}', this.files.length);
+                    else if (e.target.value)
+                        fileName = e.target.value.split('\\').pop();
 
-        $input.on( 'change', function( e )
-        {
-            var fileName = '';
+                    if (fileName)
+                        $label.find('span').html(fileName);
+                    else
+                        $label.html(labelVal);
+                });
 
-            if( this.files && this.files.length > 1 )
-            fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-            else if( e.target.value )
-            fileName = e.target.value.split( '\\' ).pop();
+                // Firefox bug fix
+                $input
+                    .on('focus', function() {
+                        $input.addClass('has-focus');
+                    })
+                    .on('blur', function() {
+                        $input.removeClass('has-focus');
+                    });
+            });
 
-            if( fileName )
-            $label.find( 'span' ).html( fileName );
-            else
-            $label.html( labelVal );
         });
-
-        // Firefox bug fix
-        $input
-        .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
-        .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
-        });
-
-    });
-    
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">

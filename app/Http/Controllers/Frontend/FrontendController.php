@@ -36,10 +36,7 @@ class FrontendController extends Controller
     public function searchPost(Request $request)
     {
         $search = $request->searchContent;
-        $posts = Post::orWhere('title', 'like', '%' . $search . '%')->
-        orWhere('slug', 'like', '%' . $search . '%')->
-        orWhere('tags', 'like', '%' . $search . '%')->
-        orderBy('id', 'desc')->where('status', 1)->paginate(6);
+        $posts = Post::orWhere('title', 'like', '%' . $search . '%')->orWhere('slug', 'like', '%' . $search . '%')->orWhere('tags', 'like', '%' . $search . '%')->orderBy('id', 'desc')->where('status', 1)->paginate(6);
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
         return view('frontend.pages.posts.search', compact('posts', 'search', 'latestPosts'));
     }

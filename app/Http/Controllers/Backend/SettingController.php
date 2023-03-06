@@ -77,25 +77,25 @@ class SettingController extends Controller
         $setting = Setting::find($id);
         $setting->site_title = $request->site_title;
         $setting->summary = $request->summary;
-        if($request->logo){
-            if(File::exists('backend/img/settings/logo/' . $setting->logo)){
+        if ($request->logo) {
+            if (File::exists('backend/img/settings/logo/' . $setting->logo)) {
                 File::delete('backend/img/settings/logo/' . $setting->logo);
             }
             $logo = $request->file('logo');
-            $logoName = $setting->site_title.'-logo';
-            $logoImg = $logoName. '-' .rand() . '.' . $logo->getClientOriginalExtension();
+            $logoName = $setting->site_title . '-logo';
+            $logoImg = $logoName . '-' . rand() . '.' . $logo->getClientOriginalExtension();
             $location = public_path('backend/img/settings/logo/' . $logoImg);
             $imageResize = Image::make($logo);
             $imageResize->resize(118, 26)->save($location);
             $setting->logo = $logoImg;
         }
-        if($request->favicon){
-            if(File::exists('backend/img/settings/favicon/' . $setting->favicon)){
+        if ($request->favicon) {
+            if (File::exists('backend/img/settings/favicon/' . $setting->favicon)) {
                 File::delete('backend/img/settings/favicon/' . $setting->favicon);
             }
             $favicon = $request->file('favicon');
-            $faviconName = $setting->site_title.'-favicon';
-            $faviconImg = $faviconName. '-' .rand() . '.' . $favicon->getClientOriginalExtension();
+            $faviconName = $setting->site_title . '-favicon';
+            $faviconImg = $faviconName . '-' . rand() . '.' . $favicon->getClientOriginalExtension();
             $location = public_path('backend/img/settings/favicon/' . $faviconImg);
             $imageResize = Image::make($favicon);
             $imageResize->resize(256, 256)->save($location);

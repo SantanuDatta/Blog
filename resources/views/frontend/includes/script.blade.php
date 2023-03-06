@@ -29,21 +29,21 @@
         "hideMethod": "fadeOut"
     }
     @if (Session::has('message'))
-        var type="{{ Session::get('alert-type', 'info') }}";
+        var type = "{{ Session::get('alert-type', 'info') }}";
 
-        switch(type){
+        switch (type) {
             case 'info':
                 toastr.info("{{ Session::get('message') }}");
-            break;
+                break;
             case 'success':
                 toastr.success("{{ Session::get('message') }}");
-            break;
+                break;
             case 'warning':
                 toastr.warning("{{ Session::get('message') }}");
-            break;
+                break;
             case 'error':
                 toastr.error("{{ Session::get('message') }}");
-            break;
+                break;
         }
     @endif
 </script>

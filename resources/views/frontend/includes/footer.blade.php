@@ -22,7 +22,8 @@
 
                 <!-- go to top button -->
                 <div class="col-md-4">
-                    <a href="#" id="return-to-top" class="float-md-end"><i class="icon-arrow-up"></i>Back to Top</a>
+                    <a href="#" id="return-to-top" class="float-md-end"><i class="icon-arrow-up"></i>Back to
+                        Top</a>
                 </div>
             </div>
         </div>

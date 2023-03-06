@@ -42,7 +42,7 @@ class EditorController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -83,9 +83,9 @@ class EditorController extends Controller
     public function edit($id)
     {
         $editor = User::find($id);
-        if(!is_null($editor)){
+        if (!is_null($editor)) {
             return view('backend.pages.editor.edit', compact('editor'));
-        }else{
+        } else {
             //404
         }
     }
@@ -121,14 +121,13 @@ class EditorController extends Controller
     public function destroy($id)
     {
         $editor = User::find($id);
-        if(!is_null($editor)){
+        if (!is_null($editor)) {
             $notification = array(
                 'alert-type'    => 'error',
                 'message'       => 'Editor Has Been Removed!',
             );
             $editor->delete();
-            
-        }else{
+        } else {
             //404
         }
         return redirect()->route('editor.manage')->with($notification);

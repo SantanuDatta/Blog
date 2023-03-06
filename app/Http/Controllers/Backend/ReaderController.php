@@ -42,7 +42,7 @@ class ReaderController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -83,9 +83,9 @@ class ReaderController extends Controller
     public function edit($id)
     {
         $reader = User::find($id);
-        if(!is_null($reader)){
+        if (!is_null($reader)) {
             return view('backend.pages.reader.edit', compact('reader'));
-        }else{
+        } else {
             //404
         }
     }
@@ -121,13 +121,13 @@ class ReaderController extends Controller
     public function destroy($id)
     {
         $reader = User::find($id);
-        if(!is_null($reader)){
+        if (!is_null($reader)) {
             $notification = array(
                 'alert-type'    => 'error',
                 'message'       => 'Reader Has Been Removed!',
             );
             $reader->delete();
-        }else{
+        } else {
             //404
         }
         return redirect()->route('reader.manage')->with($notification);

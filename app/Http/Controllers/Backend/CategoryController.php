@@ -76,10 +76,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        if(!is_null($category)){
+        if (!is_null($category)) {
             $parentCat = Category::orderBy('name', 'asc')->where('is_parent', 0)->get();
             return view('backend.pages.category.edit', compact('category', 'parentCat'));
-        }else{
+        } else {
             //404
         }
     }
@@ -100,7 +100,7 @@ class CategoryController extends Controller
         $category->description  = $request->description;
         $category->is_featured  = $request->is_featured;
         $category->status       = $request->status;
-        
+
         $notification = array(
             'alert-type'    => 'success',
             'message'       => 'Category Updated Successfully!',
@@ -119,14 +119,14 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
-        if(!is_null($category)){
+        if (!is_null($category)) {
             $notification = array(
                 'alert-type'    => 'error',
                 'message'       => 'Category Has Been Removed!',
             );
             $category->delete();
             return redirect()->route('category.manage')->with($notification);
-        }else{
+        } else {
             //404
         }
     }

@@ -60,10 +60,10 @@ class CommentController extends Controller
     public function show($id)
     {
         $comment = Comment::find($id);
-        if(!is_null($comment)){
+        if (!is_null($comment)) {
             return view('backend.pages.comment.details', compact('comment'));
-        }else{
-
+        } else {
+            //
         }
     }
 
@@ -110,16 +110,16 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::find($id);
-        if(!is_null($comment)){
+        if (!is_null($comment)) {
             $notification = array(
                 'alert-type'    => 'error',
                 'message'       => 'Comment Has Been Deleted!',
             );
             $comment->delete();
-        }else{
+        } else {
             //404
         }
-        
+
         return redirect()->route('comment.manage')->with($notification);
     }
 }

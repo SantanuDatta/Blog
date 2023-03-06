@@ -1,6 +1,7 @@
 <!-- Favicon -->
 @foreach ($settings as $setting)
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/img/settings/favicon/' . $setting->favicon) }}" />
+    <link rel="shortcut icon" type="image/x-icon"
+        href="{{ asset('backend/img/settings/favicon/' . $setting->favicon) }}" />
 @endforeach
 <!-- vendor css -->
 <link href="{{ asset('backend/lib/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -17,6 +18,9 @@
 
 {{-- Toastr --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+{{-- File Manager --}}
+<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
 <!-- Bracket CSS -->
 <link rel="stylesheet" href="{{ asset('backend/css/bracket.css') }}">

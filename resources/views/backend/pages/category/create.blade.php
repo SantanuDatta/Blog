@@ -5,8 +5,8 @@
     <div class="br-pagetitle">
         <i class="icon ion-ios-plus-outline tx-70 lh-0"></i>
         <div>
-        <h4>Add New Category</h4>
-        <p class="mg-b-0">Do bigger things with Bracket plus, the responsive bootstrap 4 admin template.</p>
+            <h4>Add New Category</h4>
+            <p class="mg-b-0">Do bigger things with Bracket plus, the responsive bootstrap 4 admin template.</p>
         </div>
     </div><!-- d-flex -->
 
@@ -24,7 +24,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Category Name<span class="tx-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-dark" name="name" placeholder="Please Input Category Name Name">
+                                        <input type="text" class="form-control form-control-dark" name="name"
+                                            placeholder="Please Input Category Name Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Category Short Description</label>
@@ -39,7 +40,8 @@
                                             @foreach ($parentCat as $pCat)
                                                 <option value="{{ $pCat->id }}">{{ $pCat->name }}</option>
                                                 @foreach (App\Models\Category::orderBy('name', 'asc')->where('is_parent', $pCat->id)->get() as $childCat)
-                                                    <option value="{{ $childCat->id }}">&#8627; {{ $childCat->name }}</option>
+                                                    <option value="{{ $childCat->id }}">&#8627; {{ $childCat->name }}
+                                                    </option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -68,10 +70,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" name="addCategory" class="btn btn-teal float-right">Add Category</button>
+                                        <button type="submit" name="addCategory" class="btn btn-teal float-right">Add
+                                            Category</button>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div><!-- card-body -->

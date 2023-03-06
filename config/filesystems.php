@@ -30,6 +30,13 @@ return [
 
     'disks' => [
 
+        // images folder in public path
+        'images' => [
+            'driver' => 'local',
+            'root' => public_path('backend/img/post-images/'),
+            'url' => env('APP_URL') . '/backend/img/post-images/',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -39,7 +46,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
