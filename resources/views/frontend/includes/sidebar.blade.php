@@ -115,19 +115,23 @@
     </div>
 
     <!-- widget tags -->
-    {{-- <div class="widget rounded">
+    <div class="widget rounded">
         <div class="widget-header text-center">
             <h3 class="widget-title">Tags</h3>
             <img src="{{ asset('frontend/images/wave.svg') }}" class="wave" alt="wave" />
         </div>
         <div class="widget-content">
-            <a href="#" class="tag">#Trending</a>
-            <a href="#" class="tag">#Video</a>
-            <a href="#" class="tag">#Featured</a>
-            <a href="#" class="tag">#Gallery</a>
-            <a href="#" class="tag">#Celebrities</a>
-        </div>		
-    </div> --}}
+            @php
+                $tags = App\Models\Post::where('status', 1)
+                    ->pluck('tags')
+                    ->toArray();
+                $uniqueTags = array_unique(explode(',', implode(',', $tags)));
+            @endphp
+            @foreach ($uniqueTags as $tag)
+                <a href="{{ route('tagPost', $tag) }}" class="tag"># {{ Str::ucfirst(trim($tag))  }}</a>
+            @endforeach
+        </div>
+    </div>
 
     <!-- widget advertisement -->
     <div class="widget no-container rounded text-md-center">
@@ -154,7 +158,8 @@
                 </div>
                 <button class="btn btn-default btn-full" name="subscribe" type="submit">Subscribe</button>
             </form>
-            <span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a href="#">Privacy
+            <span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a
+                    href="#">Privacy
                     Policy</a></span>
         </div>
     </div>

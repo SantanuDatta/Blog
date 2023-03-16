@@ -68,6 +68,13 @@ class FrontendController extends Controller
         return view('frontend.pages.posts.category', compact('cDetails', 'latestPosts'));
     }
 
+    public function tagPost($tagName)
+    {
+        $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
+        $posts = Post::where('status', 1)->where('tags', 'LIKE', '%' . $tagName . '%')->orderBy('id', 'desc')->get();
+        return view('frontend.pages.posts.tag', compact('posts', 'latestPosts', 'tagName'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

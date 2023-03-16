@@ -33,6 +33,7 @@ Route::group(['prefix' => '/blogs'], function () {
     Route::get('/single-post/{slug}', [FrontendController::class, 'singlePost'])->name('singlePost');
     Route::post('/comments', [CommentController::class, 'store'])->name('post.comment');
     Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');
+    Route::get('/tags/{tagName}', [FrontendController::class, 'tagPost'])->name('tagPost');
     Route::get('/category/{slug}', [FrontendController::class, 'categoryPost'])->name('categoryPost');
     Route::any('/search-posts', [FrontendController::class, 'searchPost'])->name('search.posts');
 });

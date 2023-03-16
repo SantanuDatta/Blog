@@ -58,7 +58,7 @@
                                 <div class="col-md-6 col-12 text-center text-md-start">
                                     <!-- tags -->
                                     @foreach (explode(',', $post->tags) as $tag)
-                                        <a href="#" class="tag">{{ $tag }}</a>
+                                        <a href="{{ route('tagPost', $tag) }}" class="tag">{{ $tag }}</a>
                                     @endforeach
                                 </div>
                                 <div class="col-md-6 col-12">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Charts\MonthlyView;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,14 @@ class BackendController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.dashboard');
+        $viewChart = new MonthlyView();
+        $viewChart->labels(['One', 'Two', 'Three', 'Four']);
+        $viewChart->dataset('My dataset 1', 'bar', [4, 1, 2, 3])->backgroundColor('rgba(242, 95, 92, 0.6)')->color('#F25F5C');
+        $viewChart->dataset('My dataset 2', 'bar', [1, 5, 3, 4])
+            ->backgroundColor('rgba(80, 81, 79, 0.5)')->color('#50514F');
+        $viewChart->height(350);
+
+        return view('backend.pages.dashboard', compact('viewChart'));
     }
 
     /**
