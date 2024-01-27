@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="details">
                                         <h4 class="name">{{ $comment->user->name }}</h4>
-                                        <span class="date">{{ $comment->created_at->toFormattedDateString() }}</span>
+                                        <span class="date">{{ $comment->created_at->diffForHumans() }}</span>
                                         <p>{!! $comment->description !!}</p>
                                         {{-- <a href="#" class="btn btn-default btn-sm">Reply</a> --}}
                                     </div>

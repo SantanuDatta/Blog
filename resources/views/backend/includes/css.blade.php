@@ -24,5 +24,6 @@
 
 <!-- Bracket CSS -->
 <link rel="stylesheet" href="{{ asset('backend/css/bracket.css') }}">
+
 <!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">

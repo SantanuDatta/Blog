@@ -25,6 +25,9 @@
 <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
 <meta name="author" content="ThemePixels">
 
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <title>
     @section('site-title')
         @foreach ($settings as $setting)

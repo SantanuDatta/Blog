@@ -116,7 +116,8 @@
                                 <img src="https://via.placeholder.com/500" alt="">
                                 <div class="media-body">
                                     <p class="noti-text"><strong>Mellisa Brown</strong> appreciated your work
-                                        <strong>The Social Network</strong></p>
+                                        <strong>The Social Network</strong>
+                                    </p>
                                     <span>October 02, 2017 12:44am</span>
                                 </div>
                             </div><!-- media -->

@@ -8,7 +8,6 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use File;
-use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
