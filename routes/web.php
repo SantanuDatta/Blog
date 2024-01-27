@@ -1,19 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-//Frontend
-use App\Http\Controllers\Frontend\FrontendController;
-
-//Backend
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\EditorController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ReaderController;
-use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\SubscriberController;
+use App\Http\Controllers\Frontend\FrontendController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +34,6 @@ Route::group(['prefix' => '/blogs'], function () {
     Route::any('/search-posts', [FrontendController::class, 'searchPost'])->name('search.posts');
 });
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -120,4 +115,4 @@ Route::middleware(['auth', 'role'])->group(function () {
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

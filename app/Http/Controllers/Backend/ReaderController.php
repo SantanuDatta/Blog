@@ -19,6 +19,7 @@ class ReaderController extends Controller
     public function index()
     {
         $readers = User::Where('role', 3)->orderBy('name', 'asc')->get();
+
         return view('backend.pages.reader.manage', compact('readers'));
     }
 
@@ -35,31 +36,31 @@ class ReaderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $reader = User::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password),
-            'role'      => $request->role,
-            'status'    => $request->status,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'status' => $request->status,
         ]);
 
-        $notification = array(
-            'alert-type'    => 'success',
-            'message'       => 'New Reader Registered!',
-        );
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'New Reader Registered!',
+        ];
 
         event(new Registered($reader));
+
         return redirect()->route('reader.manage')->with($notification);
     }
 
@@ -83,7 +84,7 @@ class ReaderController extends Controller
     public function edit($id)
     {
         $reader = User::find($id);
-        if (!is_null($reader)) {
+        if (! is_null($reader)) {
             return view('backend.pages.reader.edit', compact('reader'));
         } else {
             //404
@@ -93,20 +94,19 @@ class ReaderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $reader = User::find($id);
-        $reader->name       = $request->name;
-        $reader->role       = $request->role;
-        $reader->status     = $request->status;
-        $notification = array(
-            'alert-type'    => 'success',
-            'message'       => 'Reader Has Been Updated!',
-        );
+        $reader->name = $request->name;
+        $reader->role = $request->role;
+        $reader->status = $request->status;
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'Reader Has Been Updated!',
+        ];
         $reader->save();
 
         return redirect()->route('reader.manage')->with($notification);
@@ -121,15 +121,16 @@ class ReaderController extends Controller
     public function destroy($id)
     {
         $reader = User::find($id);
-        if (!is_null($reader)) {
-            $notification = array(
-                'alert-type'    => 'error',
-                'message'       => 'Reader Has Been Removed!',
-            );
+        if (! is_null($reader)) {
+            $notification = [
+                'alert-type' => 'error',
+                'message' => 'Reader Has Been Removed!',
+            ];
             $reader->delete();
         } else {
             //404
         }
+
         return redirect()->route('reader.manage')->with($notification);
     }
 }

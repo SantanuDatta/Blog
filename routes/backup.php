@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-//Frontend
-use App\Http\Controllers\Frontend\FrontendController;
-
-//Backend
 use App\Http\Controllers\Backend\BackendController;
+//Frontend
 use App\Http\Controllers\Backend\CategoryController;
+//Backend
 use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Frontend\FrontendController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +23,8 @@ use App\Http\Controllers\Backend\PostController;
 //     return view('welcome');
 // });
 
-    //Home
-    Route::get('/', [FrontendController::class, 'home'])->name('home');
-
+//Home
+Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +37,11 @@ use App\Http\Controllers\Backend\PostController;
 |
 */
 
-Route::group(['prefix' => '/admin'], function(){
+Route::group(['prefix' => '/admin'], function () {
     Route::get('/dashboard', [BackendController::class, 'index'])->name('admin.dashboard');
 
     //Category Route
-    Route::group(['prefix' => '/category'], function(){
+    Route::group(['prefix' => '/category'], function () {
         Route::get('/manage', [CategoryController::class, 'index'])->name('category.manage');
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
@@ -53,14 +51,14 @@ Route::group(['prefix' => '/admin'], function(){
     });
 
     //Post Route
-    Route::group(['prefix' => '/post'], function(){
+    Route::group(['prefix' => '/post'], function () {
         Route::get('/manage', [PostController::class, 'index'])->name('post.manage');
         Route::get('/create', [PostController::class, 'create'])->name('post.create');
         Route::post('/store', [PostController::class, 'store'])->name('post.store');
         Route::get('/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
         Route::post('/update/{id}', [PostController::class, 'update'])->name('post.update');
         Route::post('/destroy/{id}', [PostController::class, 'destroy'])->name('post.destroy');
-        
+
     });
-    
+
 });

@@ -16,6 +16,7 @@ class SubscriberController extends Controller
     public function index()
     {
         $subscribers = Subscriber::orderBy('id', 'desc')->get();
+
         return view('backend.pages.subscriber.manage', compact('subscribers'));
     }
 
@@ -32,23 +33,22 @@ class SubscriberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Subscriber::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Subscriber::class],
         ]);
 
         $subscriber = new Subscriber();
         $subscriber->email = $request->email;
 
-        $notification = array(
-            'alert-type'    => 'success',
-            'message'       => 'You Have Been Subscribed!',
-        );
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'You Have Been Subscribed!',
+        ];
 
         $subscriber->save();
 
@@ -80,7 +80,6 @@ class SubscriberController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -98,15 +97,16 @@ class SubscriberController extends Controller
     public function destroy($id)
     {
         $subscriber = Subscriber::find($id);
-        if (!is_null($subscriber)) {
-            $notification = array(
-                'alert-type'    => 'error',
-                'message'       => 'Subscriber Has Been Removed!',
-            );
+        if (! is_null($subscriber)) {
+            $notification = [
+                'alert-type' => 'error',
+                'message' => 'Subscriber Has Been Removed!',
+            ];
             $subscriber->delete();
         } else {
             //404
         }
+
         return redirect()->route('subscriber.manage')->with($notification);
     }
 }

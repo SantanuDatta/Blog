@@ -18,6 +18,7 @@ class FrontendController extends Controller
     {
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
         $cDetails = Category::where('is_featured', 1)->where('status', 1)->get();
+
         return view('frontend.pages.home', compact('latestPosts', 'cDetails'));
     }
 
@@ -36,8 +37,9 @@ class FrontendController extends Controller
     public function searchPost(Request $request)
     {
         $search = $request->searchContent;
-        $posts = Post::orWhere('title', 'like', '%' . $search . '%')->orWhere('slug', 'like', '%' . $search . '%')->orWhere('tags', 'like', '%' . $search . '%')->orderBy('id', 'desc')->where('status', 1)->paginate(6);
+        $posts = Post::orWhere('title', 'like', '%'.$search.'%')->orWhere('slug', 'like', '%'.$search.'%')->orWhere('tags', 'like', '%'.$search.'%')->orderBy('id', 'desc')->where('status', 1)->paginate(6);
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
+
         return view('frontend.pages.posts.search', compact('posts', 'search', 'latestPosts'));
     }
 
@@ -51,6 +53,7 @@ class FrontendController extends Controller
         $posts = Post::orderBy('id', 'desc')->paginate(10);
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
         $cDetails = Category::where('is_featured', 1)->where('status', 1)->get();
+
         return view('frontend.pages.posts.posts', compact('posts', 'latestPosts', 'cDetails'));
     }
 
@@ -58,6 +61,7 @@ class FrontendController extends Controller
     {
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
         $post = Post::where('slug', $slug)->first();
+
         return view('frontend.pages.posts.single-post', compact('post', 'latestPosts'));
     }
 
@@ -65,13 +69,15 @@ class FrontendController extends Controller
     {
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
         $cDetails = Category::where('slug', $slug)->where('status', 1)->first();
+
         return view('frontend.pages.posts.category', compact('cDetails', 'latestPosts'));
     }
 
     public function tagPost($tagName)
     {
         $latestPosts = Post::orderBy('id', 'desc')->take(4)->get();
-        $posts = Post::where('status', 1)->where('tags', 'LIKE', '%' . $tagName . '%')->orderBy('id', 'desc')->get();
+        $posts = Post::where('status', 1)->where('tags', 'LIKE', '%'.$tagName.'%')->orderBy('id', 'desc')->get();
+
         return view('frontend.pages.posts.tag', compact('posts', 'latestPosts', 'tagName'));
     }
 
@@ -88,7 +94,6 @@ class FrontendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -121,7 +126,6 @@ class FrontendController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

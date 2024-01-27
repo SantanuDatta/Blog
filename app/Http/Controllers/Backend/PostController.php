@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use File;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
@@ -20,6 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('title', 'asc')->get();
+
         return view('backend.pages.post.manage', compact('posts'));
     }
 
@@ -31,41 +32,42 @@ class PostController extends Controller
     public function create()
     {
         $parentCat = Category::where('is_parent', 0)->orderBy('name', 'asc')->get();
+
         return view('backend.pages.post.create', compact('parentCat'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $post = new Post();
-        $post->title        = $request->title;
-        $post->slug         = Str::slug($request->title);
-        $post->description  = $request->description;
-        $post->category_id  = implode(",", $request->category_id);
-        $post->tags         = $request->tags;
-        $post->is_featured  = $request->is_featured;
-        $post->user_id      = $request->user_id;
-        $post->status       = $request->status;
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->description = $request->description;
+        $post->category_id = implode(',', $request->category_id);
+        $post->tags = $request->tags;
+        $post->is_featured = $request->is_featured;
+        $post->user_id = $request->user_id;
+        $post->status = $request->status;
         if ($request->image) {
             $image = $request->file('image');
-            $img = rand() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('backend/img/post-images/' . $img);
+            $img = rand().'.'.$image->getClientOriginalExtension();
+            $location = public_path('backend/img/post-images/'.$img);
             $imageResize = Image::make($image);
             $imageResize->fit(600, 380)->save($location);
             $post->image = $img;
         }
 
-        $notification = array(
-            'alert-type'    => 'success',
-            'message'       => 'New Post Added!',
-        );
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'New Post Added!',
+        ];
 
         $post->save();
+
         return redirect()->route('post.manage')->with($notification);
     }
 
@@ -75,7 +77,6 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
 
     /**
      * Display the specified resource.
@@ -97,9 +98,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        if (!is_null($post)) {
-            $explodeCat = explode(",", $post->category_id);
+        if (! is_null($post)) {
+            $explodeCat = explode(',', $post->category_id);
             $parentCat = Category::orderBy('name', 'asc')->where('is_parent', 0)->where('status', 1)->get();
+
             return view('backend.pages.post.edit', compact('post', 'parentCat'), ['cat' => $explodeCat]);
         } else {
             //404
@@ -109,41 +111,39 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        $post->title        = $request->title;
-        $post->slug         = Str::slug($request->title);
-        $post->description  = $request->description;
-        $post->category_id  = implode(",", $request->category_id);
-        $post->tags         = $request->tags;
-        $post->is_featured  = $request->is_featured;
-        $post->status       = $request->status;
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->description = $request->description;
+        $post->category_id = implode(',', $request->category_id);
+        $post->tags = $request->tags;
+        $post->is_featured = $request->is_featured;
+        $post->status = $request->status;
         if ($request->image) {
-            if (File::exists('backend/img/post-images/' . $post->image)) {
-                File::delete('backend/img/post-images/' . $post->image);
+            if (File::exists('backend/img/post-images/'.$post->image)) {
+                File::delete('backend/img/post-images/'.$post->image);
             }
 
             $image = $request->file('image');
-            $img = rand() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('backend/img/post-images/' . $img);
+            $img = rand().'.'.$image->getClientOriginalExtension();
+            $location = public_path('backend/img/post-images/'.$img);
             $imageResize = Image::make($image);
             $imageResize->resize(600, 380)->save($location);
             $post->image = $img;
         }
-        $notification = array(
-            'alert-type'    => 'success',
-            'message'       => 'Post Has Been Updated!',
-        );
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'Post Has Been Updated!',
+        ];
         $post->save();
+
         return redirect()->route('post.manage')->with($notification);
     }
-
-
 
     /**
      * Remove the specified resource from storage.
@@ -154,15 +154,16 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        if (!is_null($post)) {
-            if (File::exists('backend/img/post-images/' . $post->image)) {
-                File::delete('backend/img/post-images/' . $post->image);
+        if (! is_null($post)) {
+            if (File::exists('backend/img/post-images/'.$post->image)) {
+                File::delete('backend/img/post-images/'.$post->image);
             }
-            $notification = array(
-                'alert-type'    => 'error',
-                'message'       => 'Post Has Been Removed!',
-            );
+            $notification = [
+                'alert-type' => 'error',
+                'message' => 'Post Has Been Removed!',
+            ];
             $post->delete();
+
             return redirect()->route('post.manage')->with($notification);
         } else {
             //404
